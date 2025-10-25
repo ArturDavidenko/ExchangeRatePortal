@@ -2,12 +2,12 @@
 
 namespace ExchangeRatesAPI.Models
 {
-    public class CurrencyAmount
+    public class CurrencyRate
     {
         [BsonElement("currency")]
         public string Currency { get; set; }
 
         [BsonElement("amount")]
-        public decimal Amount { get; set; }
+        public decimal Rate { get; set; }
     }
 }

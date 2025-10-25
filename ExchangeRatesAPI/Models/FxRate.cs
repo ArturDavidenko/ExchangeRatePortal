@@ -12,7 +12,8 @@ namespace ExchangeRatesAPI.Models
     public class FxRate
     {
         [BsonId]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
 
         [BsonElement("regionType")]
         [BsonRepresentation(BsonType.String)]

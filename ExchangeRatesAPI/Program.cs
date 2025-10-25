@@ -1,4 +1,8 @@
 
+using ExchangeRatesAPI.Models;
+using ExchangeRatesAPI.Services;
+using ExchangeRatesAPI.Services.Interfaces;
+
 namespace ExchangeRatesAPI
 {
     public class Program
@@ -10,6 +14,12 @@ namespace ExchangeRatesAPI
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddHttpClient();
+
+            builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("DataContext"));
+            builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("UrlSettings"));
+
+            builder.Services.AddScoped<IFxRateService, FxRateService>();
 
             var app = builder.Build();
  
