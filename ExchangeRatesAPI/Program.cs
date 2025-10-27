@@ -33,7 +33,17 @@ namespace ExchangeRatesAPI
             builder.Services.AddScoped<FxRateMapper>();
             builder.Services.AddScoped<FxRateCalculator>();
             builder.Services.AddHostedService<DataInitializationService>();
-            
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularApp", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                });
+            });
 
             builder.Services.AddQuartz(q =>
             {
@@ -58,6 +68,7 @@ namespace ExchangeRatesAPI
                 app.UseSwaggerUI();
             }
 
+            app.UseCors("AllowAngularApp");
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

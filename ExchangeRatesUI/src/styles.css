@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+.nav-link.active {
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.table th {
+  border-top: none;
+  font-weight: 600;
+}
