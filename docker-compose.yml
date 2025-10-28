@@ -16,6 +16,22 @@ services:
     networks:
       - backend
 
+  backend:
+    build: 
+      context: ./ExchangeRatesAPI
+      dockerfile: Dockerfile
+    container_name: currency_api
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__MongoDB=mongodb://root:rootpassword@mongo:27017/currencydb?authSource=admin
+    depends_on:
+      - mongo
+    networks:
+      - backend
+
 volumes:
   mongo_data:
 
