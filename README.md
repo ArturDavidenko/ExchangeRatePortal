@@ -143,6 +143,27 @@ ExchangeRates/
 
 ## 6. Data Volume Calculation
 
+**Daily Data:**
+- 90 currencies × 1 update/day = 90 records
+- Average record size: ~2KB (rates array + metadata)
+- **Daily storage**: 90 × 2KB = 180KB
+
+**Yearly Projection:**
+- 90 records/day × 365 days = 32,850 records/year  
+- **Yearly storage**: 32,850 × 2KB ≈ 65MB
+
+**Historical Data (90 days initial):**
+- 90 days × 90 records/day = 8,100 records
+- **Initial storage**: 8,100 × 2KB ≈ 16MB
+
+### Performance Considerations
+- **Query Speed**: Sub-100ms response times even at current scale
+- **Indexing Ready**: Database can be optimized with indexes on `date`, `regionType`, and `rates.currency` for faster searches
+- **Scalability**: MongoDB's horizontal scaling available when needed
+
+**Note**: Indexing implementation omitted in this test version but represents standard production practice for optimal query performance.
+
 ## 7. Contacts
 
+My contact: artursdavidenko@gmail.com
 
