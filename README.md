@@ -11,6 +11,18 @@ Key functionality:
 - Currency calculator for amount conversion
 - Automated daily rate updates via Quartz scheduler
 
+### Infrastructure Setup
+![Docker & API Setup](./docs/demo1.gif)  
+*Docker Compose startup and Swagger API documentation*  
+
+### Application Features  
+![Full Application Demo](./docs/demo2.gif)  
+*Currency calculator, historical rates, and multi-region support (Lithuania/Estonia)*  
+
+### Error Handling  
+![API Error Scenario](./docs/demo3.gif)  
+*Graceful error handling when external API is unavailable*  
+
 ## 2. Quick Start
 
 ### Prerequisites
