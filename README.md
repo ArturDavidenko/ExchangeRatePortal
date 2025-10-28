@@ -22,6 +22,7 @@ Key functionality:
 
 1. **Clone and navigate to the project:**
    ```bash
+   
    git clone https://github.com/ArturDavidenko/ExchangeRatePortal
    cd ExchangeRates
    ```
