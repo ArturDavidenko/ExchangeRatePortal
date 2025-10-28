@@ -38,7 +38,7 @@ Key functionality:
   ng serve
   ```
 
-## Access ponts
+## Access points
 
 - Web Application: http://localhost:4200
 - API Documentation: http://localhost:5000/swagger
@@ -107,6 +107,39 @@ ExchangeRates/
 - **Swagger**: Provides automatic API documentation, making endpoints easily testable and understandable.
 
 ## 5.  API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/ExchangeRates/current/{region}` | Retrieves current exchange rates for specified region |
+| `GET` | `/ExchangeRates/history/{region}/{currency}?days=90` | Gets historical exchange rate data with customizable timeframe |
+| `POST` | `/ExchangeRates/calculate` | Performs currency conversion calculations |
+| `POST` | `/ExchangeRates/trigger-update` | Manually triggers rate updates (bypasses Quartz scheduler) |
+
+## Data structure
+
+**Region Types:**
+- `0` = LT (Lithuania)
+- `1` = EU (European Union)
+
+**Response Example** (Current Rates):
+```json
+{
+  "id": "69013c620e140d2d5946bf1a",
+  "regionType": 0,
+  "date": "2025-10-28T00:00:00Z", 
+  "baseCurrency": "EUR",
+  "rates": [
+    {
+      "currency": "AUD",
+      "rate": 1.7745
+    },
+    {
+      "currency": "BGN",
+      "rate": 1.9558
+    }
+  ]
+}
+```
 
 ## 6. Data Volume Calculation
 
