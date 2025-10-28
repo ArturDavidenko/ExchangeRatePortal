@@ -55,19 +55,19 @@ or scaling considerations), I'm available to walk through the reasoning and alte
 
 ExchangeRates/  
 ├── 📂 ExchangeRatesAPI (Backend)/  
-│ ├── 📂 Controllers/ # REST API endpoints  
-│ ├── 📂 Services/ # Business logic  
-│ ├── 📂 Repositories/ # Service whow work with database  
-│ ├── 📂 Models/ # Data contracts  
-│ ├── 📂 Jobs/ # Quartz scheduled tasks  
-│ └── 📂 Data/ # MongoDB context or other databases  
+│ ├── 📂 Controllers/   # REST API endpoints  
+│ ├── 📂 Services/   # Business logic  
+│ ├── 📂 Repositories/   # Service whow work with database  
+│ ├── 📂 Models/   # Data contracts  
+│ ├── 📂 Jobs/   # Quartz scheduled tasks  
+│ └── 📂 Data/   # MongoDB context or other databases  
 ├── 📂 ExchangeRatesUI (Frontend)/  
 │ ├── 📂 src/app/  
-│ │ ├── 📂 components/ # UI components  
-│ │ ├── 📂 services/ # API clients  
-│ │ ├── 📂 models/ # TypeScript interfaces  
-├── 📄 docker-compose.yml # Infrastructure  
-└── 📄 README.md # This file  
+│ │ ├── 📂 components/   # UI components    
+│ │ ├── 📂 services/   # Business logic  
+│ │ ├── 📂 models/   # TypeScript interfaces    
+├── 📄 docker-compose.yml   # Infrastructure  
+└── 📄 README.md   # This file  
 
 ## Architecture diagramm
 
