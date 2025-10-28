@@ -17,7 +17,7 @@ Key functionality:
 
 ### Application Features  
 ![Full Application Demo](./docs/demo2.gif)  
-*Currency calculator, historical rates, and multi-region support (Lithuania/Estonia)*  
+*Currency calculator, historical rates, and multi-region support (Lithuania/EU)*  
 
 ### Error Handling  
 ![API Error Scenario](./docs/demo3.gif)  
