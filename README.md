@@ -60,6 +60,7 @@ ExchangeRates/
 │ ├── 📂 Repositories/   # Service who work with database  
 │ ├── 📂 Models/   # Data contracts  
 │ ├── 📂 Jobs/   # Quartz scheduled tasks  
+│ ├── 📂 Helper/  # Additionals functions to use  
 │ └── 📂 Data/   # MongoDB context or other databases  
 ├── 📂 ExchangeRatesUI (Frontend)/  
 │ ├── 📂 src/app/  
