@@ -22,20 +22,22 @@ Key functionality:
 
 1. **Clone and navigate to the project:**
    ```bash
-   
    git clone https://github.com/ArturDavidenko/ExchangeRatePortal
    cd ExchangeRates
    ```
+   
 2. **Start backend services with Docker:**
   ```bash
   docker compose up -d
   ```
+
 3. **Launch the frontend application:**
   ```bash
   cd ExchangeRatesUI
   npm install
   ng serve
   ```
+
 ## Access ponts
 
 - Web Application: http://localhost:4200
@@ -53,6 +55,7 @@ Key functionality:
 | Database | MongoDB | 6.0 |
 | Scheduler | Quartz.NET | 3.8 |
 | Containerization | Docker | 24+ |
+| Documentation | Swagger | -- |
 
 
 ## 5. Data Volume Calculation
