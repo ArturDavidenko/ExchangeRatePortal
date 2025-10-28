@@ -45,11 +45,25 @@ Key functionality:
   
 ## 3. System Architecture  
 
-The application follows a clean, layered architecture designed for scalability and maintainability. 
-Key architectural decisions were made to ensure efficient data flow, reliable scheduling, and clear separation of concerns.
+### Backend Architecture  
+- **Layered Clean Architecture** with clear separation of concerns  
+- **Repository Pattern** for database abstraction (MongoDB implementation)  
+- **Service Layer** containing business logic and coordinating repositories  
+- **Controller Layer** handling HTTP requests and responses  
+- **Scheduled Jobs** (Quartz.NET) for automated rate updates  
+- **Helper/Utility classes** following Single Responsibility Principle (SOLID)  
 
-For detailed discussions on specific architectural choices (technology selection, data flow patterns, 
-or scaling considerations), I'm available to walk through the reasoning and alternatives considered.
+### Frontend Architecture    
+- **Component-based Structure** with reusable UI components  
+- **Service Layer** for API communication and business logic  
+- **TypeScript Interfaces** for type safety and contracts  
+- **Modular Design** enabling easy feature additions  
+
+### Key Benefits  
+- **Scalable Foundation** - Easy to add new features and endpoints  
+- **Testable Code** - Clear boundaries enable unit testing  
+- **Maintainable** - Changes localized to specific layers  
+- **Future-proof** - Ready for database switching or additional data sources  
 
 ## Path architecture
 
@@ -70,11 +84,6 @@ ExchangeRates/
 ├── 📄 docker-compose.yml   # Infrastructure  
 └── 📄 README.md   # This file  
 
-## Architecture diagramm
-
-
-
-
 ## 4. Technology Stack
 | Layer | Technology | Version |
 |-------|------------|---------|
@@ -85,19 +94,9 @@ ExchangeRates/
 | Containerization | Docker | 24+ |
 | Documentation | Swagger | -- |
 
-**Backend Architecture**: Clean Architecture with interface-based design allows easy database switching (MongoDB chosen for simplicity with document-based rate data).
+## 5.  API Endpoints
 
-**Development Experience**: Docker provides standardized environment setup without IDE dependencies.
-
-**API Documentation**: Swagger enables instant API exploration and testing.
-
-
-## 5. Data Volume Calculation
-
-
-
-
-## 6. API Endpoints
+## 6. Data Volume Calculation
 
 ## 7. Contacts
 
