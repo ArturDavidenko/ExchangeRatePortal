@@ -94,6 +94,18 @@ ExchangeRates/
 | Containerization | Docker | 24+ |
 | Documentation | Swagger | -- |
 
+**Technology Selection Rationale**
+
+- **.NET**: Chosen for personal expertise to best demonstrate engineering thinking within the test assignment timeframe. Equivalent Java implementation would be equally feasible.
+
+- **Angular**: Current framework of choice for building component-based, maintainable frontend applications.
+
+- **MongoDB**: Ideal fit for document-based exchange rate data - simple setup, no complex relationships required, perfectly suited for the data structure.
+
+- **Docker**: Ensures consistent development environments and easy testing across different machines.
+
+- **Swagger**: Provides automatic API documentation, making endpoints easily testable and understandable.
+
 ## 5.  API Endpoints
 
 ## 6. Data Volume Calculation
