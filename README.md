@@ -1,7 +1,9 @@
 # Exchange Rate Portal
 
 ## 1. Project Overview
-A web application for tracking and analyzing currency exchange rates from the Bank of Lithuania. The portal provides real-time exchange rates, historical data visualization, and currency conversion capabilities. Rates are automatically synchronized daily from the LB.lt web service, with initial data populated for the last 90 days.
+A web application for tracking and analyzing currency exchange rates from the Bank of Lithuania. 
+The portal provides real-time exchange rates, historical data visualization, and currency conversion capabilities. 
+Rates are automatically synchronized daily from the LB.lt web service, with initial data populated for the last 90 days.
 
 Key functionality:
 - Display current exchange rates from Bank of Lithuania
@@ -19,7 +21,7 @@ Key functionality:
 | Layer | Technology | Version |
 |-------|------------|---------|
 | Backend | .NET | 8.0 |
-| Frontend | Angular | 17 |
+| Frontend | Angular | 20+ |
 | Database | MongoDB | 6.0 |
 | Scheduler | Quartz.NET | 3.8 |
 | Containerization | Docker | 24+ |
