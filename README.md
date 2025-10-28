@@ -57,7 +57,7 @@ ExchangeRates/
 ├── 📂 ExchangeRatesAPI (Backend)/  
 │ ├── 📂 Controllers/   # REST API endpoints  
 │ ├── 📂 Services/   # Business logic  
-│ ├── 📂 Repositories/   # Service whow work with database  
+│ ├── 📂 Repositories/   # Service who work with database  
 │ ├── 📂 Models/   # Data contracts  
 │ ├── 📂 Jobs/   # Quartz scheduled tasks  
 │ └── 📂 Data/   # MongoDB context or other databases  
