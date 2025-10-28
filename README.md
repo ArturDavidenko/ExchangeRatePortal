@@ -165,5 +165,7 @@ ExchangeRates/
 
 ## 7. Contacts
 
-My contact: artursdavidenko@gmail.com
+If you have any questions about the implementation, architecture decisions, or would like to discuss any aspect of this project, please feel free to reach out.   
+I'm happy to provide detailed explanations and walk through the codebase.  
+My contact: artursdavidenko@gmail.com  
 
