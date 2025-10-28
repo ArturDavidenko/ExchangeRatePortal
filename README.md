@@ -53,7 +53,7 @@ or scaling considerations), I'm available to walk through the reasoning and alte
 
 ## Path architecture
 
-ExchangeRates/
+ExchangeRates/  
 ├── 📂 ExchangeRatesAPI (Backend)/  
 │ ├── 📂 Controllers/ # REST API endpoints  
 │ ├── 📂 Services/ # Business logic  
