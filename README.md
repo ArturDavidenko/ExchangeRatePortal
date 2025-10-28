@@ -14,7 +14,7 @@ Key functionality:
 ## 2. Quick Start
 
 ### Prerequisites
-- Docker Desktop (with Docker Compose)
+- Docker Desktop App
 - Node.js 18+ 
 - Angular CLI
 
