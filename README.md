@@ -45,6 +45,33 @@ Key functionality:
   
 ## 3. System Architecture  
 
+The application follows a clean, layered architecture designed for scalability and maintainability. 
+Key architectural decisions were made to ensure efficient data flow, reliable scheduling, and clear separation of concerns.
+
+For detailed discussions on specific architectural choices (technology selection, data flow patterns, 
+or scaling considerations), I'm available to walk through the reasoning and alternatives considered.
+
+## Path architecture
+
+ExchangeRates/
+├── 📂 ExchangeRatesAPI (Backend)/
+│   ├── 📂 Controllers/          # REST API endpoints
+│   ├── 📂 Services/             # Business logic
+│   ├── 📂 Repositories/         # Service who work with database
+│   ├── 📂 Models/               # Data contracts
+│   ├── 📂 Jobs/                 # Quartz scheduled tasks
+│   └── 📂 Data/                 # MongoDB context or other databases context
+├── 📂 ExchangeRatesUI (Frontend)/
+│   ├── 📂 src/app/
+│   │   ├── 📂 components/       # UI components
+│   │   ├── 📂 services/         # API clients
+│   │   ├── 📂 models/           # TypeScript interfaces
+├── 📄 docker-compose.yml        # Infrastructure
+└── 📄 README.md                 # This file
+
+## Architecture diagramm
+
+
 
 
 ## 4. Technology Stack
@@ -56,6 +83,12 @@ Key functionality:
 | Scheduler | Quartz.NET | 3.8 |
 | Containerization | Docker | 24+ |
 | Documentation | Swagger | -- |
+
+**Backend Architecture**: Clean Architecture with interface-based design allows easy database switching (MongoDB chosen for simplicity with document-based rate data).
+
+**Development Experience**: Docker provides standardized environment setup without IDE dependencies.
+
+**API Documentation**: Swagger enables instant API exploration and testing.
 
 
 ## 5. Data Volume Calculation
