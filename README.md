@@ -22,7 +22,7 @@ Key functionality:
 
 1. **Clone and navigate to the project:**
    ```bash
-   git clone [<repository-url>](https://github.com/ArturDavidenko/ExchangeRatePortal)
+   git clone (https://github.com/ArturDavidenko/ExchangeRatePortal)
    cd ExchangeRates
    ```
 2. **Start backend services with Docker:**
