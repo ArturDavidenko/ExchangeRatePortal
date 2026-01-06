@@ -1,24 +1,38 @@
-# Exchange Rate Portal
+# 💱 Exchange Rate Portal
 
-## 1. Project Overview
+## 📋 1. Project Overview
 A web application for tracking and analyzing currency exchange rates from the Bank of Lithuania. 
 The portal provides real-time exchange rates, historical data visualization, and currency conversion capabilities. 
 Rates are automatically synchronized daily from the LB.lt web service, with initial data populated for the last 90 days.
 
-Key functionality:
+### 🚀 Key functionality:
 - Display current exchange rates from Bank of Lithuania
 - Show historical exchange rate data with charts/tables
 - Currency calculator for amount conversion
 - Automated daily rate updates via Quartz scheduler
 
-## 2. Quick Start
+### 🎥 Demo
 
-### Prerequisites
+#### 🔧 Infrastructure Setup
+![Docker & API Setup](./docs/demo1.gif)  
+*Docker Compose startup and Swagger API documentation*  
+
+#### 🌟 Application Features  
+![Full Application Demo](./docs/demo2.gif)  
+*Currency calculator, historical rates, and multi-region support (Lithuania/EU)*  
+
+#### 🛡️ Error Handling  
+![API Error Scenario](./docs/demo3.gif)  
+*Graceful error handling when external API is unavailable*  
+
+## 🚀 2. Quick Start
+
+### 📋 Prerequisites
 - Docker Desktop App
 - Node.js 18+ 
 - Angular CLI
 
-### Installation & Launch
+### ⚡ Installation & Launch
 
 1. **Clone and navigate to the project:**
    ```bash
@@ -38,14 +52,14 @@ Key functionality:
   ng serve
   ```
 
-## Access points
+## 🌐 Access points
 
 - Web Application: http://localhost:4200
 - API Documentation: http://localhost:5000/swagger
   
-## 3. System Architecture  
+## 🏗️ 3. System Architecture  
 
-### Backend Architecture  
+### 🔧 Backend Architecture  
 - **Layered Clean Architecture** with clear separation of concerns  
 - **Repository Pattern** for database abstraction (MongoDB implementation)  
 - **Service Layer** containing business logic and coordinating repositories  
@@ -53,19 +67,19 @@ Key functionality:
 - **Scheduled Jobs** (Quartz.NET) for automated rate updates  
 - **Helper/Utility classes** following Single Responsibility Principle (SOLID)  
 
-### Frontend Architecture    
+### 🎨 Frontend Architecture    
 - **Component-based Structure** with reusable UI components  
 - **Service Layer** for API communication and business logic  
 - **TypeScript Interfaces** for type safety and contracts  
 - **Modular Design** enabling easy feature additions  
 
-### Key Benefits  
+### ✅ Key Benefits  
 - **Scalable Foundation** - Easy to add new features and endpoints  
 - **Testable Code** - Clear boundaries enable unit testing  
 - **Maintainable** - Changes localized to specific layers  
 - **Future-proof** - Ready for database switching or additional data sources  
 
-## Path architecture
+## 📁 Path architecture
 
 ExchangeRates/  
 ├── 📂 ExchangeRatesAPI (Backend)/  
@@ -84,7 +98,7 @@ ExchangeRates/
 ├── 📄 docker-compose.yml   # Infrastructure  
 └── 📄 README.md   # This file  
 
-## 4. Technology Stack
+## ⚙️ 4. Technology Stack
 | Layer | Technology | Version |
 |-------|------------|---------|
 | Backend | .NET | 8.0 |
@@ -94,7 +108,7 @@ ExchangeRates/
 | Containerization | Docker | 24+ |
 | Documentation | Swagger | -- |
 
-**Technology Selection Rationale**
+## 🎯 **Technology Selection Rationale**
 
 - **.NET**: Chosen for personal expertise to best demonstrate engineering thinking within the test assignment timeframe. Equivalent Java implementation would be equally feasible.
 
@@ -106,7 +120,7 @@ ExchangeRates/
 
 - **Swagger**: Provides automatic API documentation, making endpoints easily testable and understandable.
 
-## 5.  API Endpoints
+## 🌐 5.  API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -115,7 +129,7 @@ ExchangeRates/
 | `POST` | `/ExchangeRates/calculate` | Performs currency conversion calculations |
 | `POST` | `/ExchangeRates/trigger-update` | Manually triggers rate updates (bypasses Quartz scheduler) |
 
-## Data structure
+## 💾 Data structure
 
 **Region Types:**
 - `0` = LT (Lithuania)
@@ -141,7 +155,7 @@ ExchangeRates/
 }
 ```
 
-## 6. Data Volume Calculation
+## 📊 6. Data Volume Calculation
 
 **Daily Data:**
 - 90 currencies × 1 update/day = 90 records
@@ -156,14 +170,14 @@ ExchangeRates/
 - 90 days × 90 records/day = 8,100 records
 - **Initial storage**: 8,100 × 2KB ≈ 16MB
 
-### Performance Considerations
+### ⚡ Performance Considerations
 - **Query Speed**: Sub-100ms response times even at current scale
 - **Indexing Ready**: Database can be optimized with indexes on `date`, `regionType`, and `rates.currency` for faster searches
 - **Scalability**: MongoDB's horizontal scaling available when needed
 
 **Note**: Indexing implementation omitted in this test version but represents standard production practice for optimal query performance.
 
-## 7. Contacts
+## 📞 7. Contacts
 
 If you have any questions about the implementation, architecture decisions, or would like to discuss any aspect of this project, please feel free to reach out.   
 I'm happy to provide detailed explanations and walk through the codebase.  
