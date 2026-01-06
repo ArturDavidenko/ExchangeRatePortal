@@ -18,7 +18,7 @@ namespace ExchangeRatesAPI.Repositories
 
         public async Task SaveRates(List<FxRate> rates)
         {
-            foreach (var rate in rates)
+            var operations = rates.Select(rate =>
             {
                 var filter = Builders<FxRate>.Filter.Where(x =>
                     x.Date == rate.Date &&
@@ -28,11 +28,14 @@ namespace ExchangeRatesAPI.Repositories
                     .Set(x => x.Rates, rate.Rates)
                     .Set(x => x.BaseCurrency, rate.BaseCurrency);
 
-                await _context.FxRate.UpdateOneAsync(
-                    filter,
-                    update,
-                    new UpdateOptions { IsUpsert = true });
-            }
+                return new UpdateOneModel<FxRate>(filter, update)
+                {
+                    IsUpsert = true
+                };
+            }).ToList();
+
+            if (operations.Any())
+                await _context.FxRate.BulkWriteAsync(operations);
         }
 
         public async Task<FxRate> GetLatestRates(RegionType regionType)
