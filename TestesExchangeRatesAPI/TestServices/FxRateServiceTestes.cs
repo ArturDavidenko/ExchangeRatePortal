@@ -6,7 +6,9 @@ using Microsoft.Extensions.Options;
 using Moq;
 using Moq.Protected;
 using System.Net;
+using System.Net.Http;
 using System.Xml.Linq;
+using TestesExchangeRatesAPI.Helpers.XmlSamples;
 
 namespace TestesExchangeRatesAPI
 {
@@ -14,38 +16,51 @@ namespace TestesExchangeRatesAPI
     {
         private readonly Mock<IFxRateRepository> _mockRepository;
         private readonly Mock<IHttpClientFactory> _mockHttpClientFactory;
-        private readonly Mock<IOptions<ApiSettings>> _mockOptions;
-        private readonly Mock<FxRateMapper> _mockMapper;
-        private readonly Mock<FxRateXmlParser> _mockParser;
-        private readonly Mock<FxRateCalculator> _mockCalculator;
+        private readonly IOptions<ApiSettings> _options;
+
         private readonly FxRateService _service;
 
         public FxRateServiceTestes()
         {
             _mockRepository = new Mock<IFxRateRepository>();
             _mockHttpClientFactory = new Mock<IHttpClientFactory>();
-            _mockOptions = new Mock<IOptions<ApiSettings>>();
-            _mockMapper = new Mock<FxRateMapper>();
-            _mockParser = new Mock<FxRateXmlParser>();
-            _mockCalculator = new Mock<FxRateCalculator>();
 
-            // HttpClientFactory
-            var mockHttpClient = new Mock<HttpClient>();
+            var parser = new FxRateXmlParser();
+            var mapper = new FxRateMapper();
+            var calculator = new FxRateCalculator();
+
+            // Options Ч без Moq
+            _options = Options.Create(new ApiSettings
+            {
+                BaseFxRatesUrl = "http://test.com"
+            });
+
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+            mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent(ValidFxRatesXml.ValidEuRates())
+                });
+
+            var httpClient = new HttpClient(mockHttpMessageHandler.Object);
+
             _mockHttpClientFactory
-                .Setup(x => x.CreateClient(It.IsAny<string>()))
-                .Returns(mockHttpClient.Object);
-
-            // ApiSettings
-            _mockOptions.Setup(x => x.Value)
-                .Returns(new ApiSettings { BaseFxRatesUrl = "http://test.com" });
+                .Setup(x => x.CreateClient("ApiClient"))
+                .Returns(httpClient);
 
             _service = new FxRateService(
                 _mockHttpClientFactory.Object,
-                _mockOptions.Object,
-                _mockMapper.Object,
-                _mockParser.Object,
+                _options,
+                mapper,
+                parser,
                 _mockRepository.Object,
-                _mockCalculator.Object
+                calculator
             );
         }
 
@@ -103,77 +118,19 @@ namespace TestesExchangeRatesAPI
         {
             // Arrange
             var region = RegionType.EU;
-            var expectedRates = new List<FxRate>
-            {
-                new FxRate
-                {
-                    Id = "rate-1",
-                    Date = DateTime.Parse("2024-01-15"),
-                    RegionType = RegionType.EU,
-                    BaseCurrency = "EUR",
-                    Rates = new List<CurrencyRate>
-                    {
-                        new CurrencyRate { Currency = "USD", Rate = 1.09m },
-                        new CurrencyRate { Currency = "GBP", Rate = 0.86m }
-                    }
-                },
-                new FxRate
-                {
-                    Id = "rate-2",
-                    Date = DateTime.Parse("2024-01-14"),
-                    RegionType = RegionType.EU,
-                    BaseCurrency = "EUR",
-                    Rates = new List<CurrencyRate>
-                    {
-                        new CurrencyRate { Currency = "USD", Rate = 1.08m },
-                        new CurrencyRate { Currency = "GBP", Rate = 0.85m }
-                    }
-                }
-            };
-
-            // HttpClient mock
-            var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
-            mockHttpMessageHandler
-                .Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent("<xml>test xml content</xml>")
-                });
-
-            var httpClient = new HttpClient(mockHttpMessageHandler.Object);
-            _mockHttpClientFactory
-                .Setup(x => x.CreateClient(It.IsAny<string>()))
-                .Returns(httpClient);
-
-            var mockXDocument = new XDocument();
-            _mockParser
-                .Setup(x => x.CleanAndParseXml(It.IsAny<string>()))
-                .Returns(mockXDocument);
-
-            _mockMapper
-                .Setup(x => x.MapXmlToFxRate(mockXDocument))
-                .Returns(expectedRates);
 
             // Act
             var result = await _service.GetFxRatesListFromAPI(region);
 
             // Assert
             Assert.NotNull(result);
-            Assert.IsType<List<FxRate>>(result);
-            Assert.Equal(2, result.Count);
+            Assert.NotEmpty(result);
 
-            var firstRate = result[0];
-            Assert.Equal("rate-1", firstRate.Id);
+            var firstRate = result.First();
             Assert.Equal(RegionType.EU, firstRate.RegionType);
-            Assert.Equal(2, firstRate.Rates.Count);
+            Assert.Equal("EUR", firstRate.BaseCurrency);
 
-            var usdRate = firstRate.Rates.FirstOrDefault(r => r.Currency == "USD");
-            Assert.NotNull(usdRate);
+            var usdRate = firstRate.Rates.First(r => r.Currency == "USD");
             Assert.Equal(1.09m, usdRate.Rate);
         }
 
