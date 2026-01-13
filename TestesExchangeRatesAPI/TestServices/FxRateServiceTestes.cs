@@ -134,5 +134,32 @@ namespace TestesExchangeRatesAPI
             Assert.Equal(1.09m, usdRate.Rate);
         }
 
+
+        [Fact]
+        public async Task GetHistoricalFxRates_ReturnsFxRates_WhenResponseIsValid()
+        {
+            // Arrange
+            var region = RegionType.EU;
+            var date = new DateTime(2024, 01, 01);
+
+            // Act
+            var result = await _service.GetHistoricalFxRates(region, date);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+
+            Assert.All(result, fxRate =>
+            {
+                Assert.NotEmpty(fxRate.Rates);
+
+                Assert.All(fxRate.Rates, rate =>
+                {
+                    Assert.False(string.IsNullOrWhiteSpace(rate.Currency));
+                    Assert.True(rate.Rate > 0);
+                });
+            });
+        }
+
     }
 }

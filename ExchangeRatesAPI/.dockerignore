@@ -1,0 +1,14 @@
+# Test projects
+TestesExchangeRatesAPI/
+
+# bin / obj
+**/bin/
+**/obj/
+
+# user stuff
+.vs/
+.idea/
+
+# git
+.git/
+.gitignore

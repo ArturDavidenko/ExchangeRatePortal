@@ -64,25 +64,28 @@ namespace ExchangeRatesAPI.Services
 
         public async Task SeedHistoricalDataAsync()
         {
-            var hasData = await _fxRateRepository.AnyDataExist();
-
-            if (hasData)
+            if (await _fxRateRepository.AnyDataExist())
                 return;
+
+            var allRates = new List<FxRate>();
+
+            var today = DateTime.UtcNow.Date;
 
             for (int i = 0; i < 90; i++)
             {
-                var date = DateTime.UtcNow.AddDays(-i);
+                var date = today.AddDays(-i);
 
                 var euRates = await GetHistoricalFxRates(RegionType.EU, date);
                 if (euRates != null && euRates.Any())
-                    await _fxRateRepository.SaveRates(euRates);
+                    allRates.AddRange(euRates);
 
                 var ltRates = await GetHistoricalFxRates(RegionType.LT, date);
                 if (ltRates != null && ltRates.Any())
-                    await _fxRateRepository.SaveRates(ltRates);
-
-                await Task.Delay(100);
+                    allRates.AddRange(ltRates);
             }
+
+            if (allRates.Any())
+                await _fxRateRepository.SaveRates(allRates);
         }
 
         public async Task UpdateCurrentRatesAsync()
