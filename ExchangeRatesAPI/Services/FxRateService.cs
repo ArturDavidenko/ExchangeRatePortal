@@ -10,6 +10,8 @@ namespace ExchangeRatesAPI.Services
 {
     public class FxRateService : IFxRateService
     {
+        private const int DefaultHistoryDays = 90;
+
         private readonly HttpClient _httpClient;
         private readonly string _baseFxRatesUrl;
         private readonly FxRateXmlParser _fxRateXmlParser;
@@ -67,22 +69,24 @@ namespace ExchangeRatesAPI.Services
             if (await _fxRateRepository.AnyDataExist())
                 return;
 
-            var allRates = new List<FxRate>();
-
             var today = DateTime.UtcNow.Date;
 
-            for (int i = 0; i < 90; i++)
+            var tasks = new List<Task<List<FxRate>>>();
+
+            for (int i = 0; i < DefaultHistoryDays; i++)
             {
                 var date = today.AddDays(-i);
 
-                var euRates = await GetHistoricalFxRates(RegionType.EU, date);
-                if (euRates != null && euRates.Any())
-                    allRates.AddRange(euRates);
-
-                var ltRates = await GetHistoricalFxRates(RegionType.LT, date);
-                if (ltRates != null && ltRates.Any())
-                    allRates.AddRange(ltRates);
+                tasks.Add(GetHistoricalFxRates(RegionType.EU, date));
+                tasks.Add(GetHistoricalFxRates(RegionType.LT, date));
             }
+
+            var results = await Task.WhenAll(tasks);
+
+            var allRates = results
+                .Where(r => r != null && r.Any())
+                .SelectMany(r => r)
+                .ToList();
 
             if (allRates.Any())
                 await _fxRateRepository.SaveRates(allRates);
