@@ -1,5 +1,6 @@
 using ExchangeRatesAPI.Helper;
 using ExchangeRatesAPI.Models;
+using ExchangeRatesAPI.Models.DTOs;
 using ExchangeRatesAPI.Repositories.Interfaces;
 using ExchangeRatesAPI.Services;
 using Microsoft.Extensions.Options;
@@ -29,7 +30,6 @@ namespace TestesExchangeRatesAPI
             var mapper = new FxRateMapper();
             var calculator = new FxRateCalculator();
 
-            // Options Ч без Moq
             _options = Options.Create(new ApiSettings
             {
                 BaseFxRatesUrl = "http://test.com"
@@ -160,6 +160,107 @@ namespace TestesExchangeRatesAPI
                 });
             });
         }
+
+
+        [Fact]
+        public async Task SeedHistoricalDataAsync_WhenNoDataExist_ShouldFetchAndSaveRates()
+        {
+            // Arrange
+            _mockRepository
+                .Setup(r => r.AnyDataExist())
+                .ReturnsAsync(false);
+
+            _mockRepository
+                .Setup(r => r.SaveRates(It.IsAny<List<FxRate>>()))
+                .Returns(Task.CompletedTask);
+
+            // Act
+            await _service.SeedHistoricalDataAsync();
+
+            // Assert
+            _mockRepository.Verify(
+                r => r.SaveRates(It.Is<List<FxRate>>(rates =>
+                    rates != null &&
+                    rates.Any()
+                )),
+                Times.Once);
+        }
+
+
+        [Fact]
+        public async Task UpdateCurrentRatesAsync_WhenApiReturnsRates_ShouldSaveRatesForBothRegions()
+        {
+            // Arrange
+            _mockRepository
+                .Setup(r => r.SaveRates(It.IsAny<List<FxRate>>()))
+                .Returns(Task.CompletedTask);
+
+            // Act
+            await _service.UpdateCurrentRatesAsync();
+
+            // Assert
+            _mockRepository.Verify(
+                r => r.SaveRates(It.IsAny<List<FxRate>>()),
+                Times.Exactly(2)); // EU + LT
+        }
+
+        [Fact]
+        public async Task CalculateExchange_WhenRatesExist_ShouldReturnCorrectResult()
+        {
+            // Arrange
+            var calculator = new FxRateCalculator();
+
+            var service = new FxRateService(
+                _mockHttpClientFactory.Object,
+                _options,
+                new FxRateMapper(),
+                new FxRateXmlParser(),
+                _mockRepository.Object,
+                calculator
+            );
+
+            var request = new CalculationRequest
+            {
+                Region = RegionType.EU,
+                FromCurrency = "EUR",
+                ToCurrency = "USD",
+                Amount = 100
+            };
+
+            var rates = new FxRate
+            {
+ 
+                RegionType = RegionType.EU,
+                Date = DateTime.UtcNow.Date,
+                Rates = new List<CurrencyRate>
+                {
+                    new CurrencyRate
+                    {
+                        Currency = "USD",
+                        Rate = 1.1m
+                    }
+                }
+                
+            };
+
+            _mockRepository
+                .Setup(r => r.GetLatestRates(RegionType.EU))
+                .ReturnsAsync(rates);
+            // Act
+            var result = await service.CalculateExchange(request);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(100, result.Amount); 
+            Assert.Equal(110, result.CalculatedAmount); 
+            Assert.Equal(1.1m, result.ExchangeRate); 
+            Assert.Equal("EUR", result.FromCurrency);
+            Assert.Equal("USD", result.ToCurrency);
+            Assert.Equal(RegionType.EU, result.Region);
+            Assert.Equal(rates.Date, result.RateDate);
+        }
+
+
 
     }
 }
