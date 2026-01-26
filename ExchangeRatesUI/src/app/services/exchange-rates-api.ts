@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../envirovment';
+import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { CalculationRequest, CalculationResult, CurrencyHistoryPoint, FxRate, RegionType } from '../models/exchange-rates.model';
 import { Observable } from 'rxjs';

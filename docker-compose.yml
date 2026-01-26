@@ -32,6 +32,19 @@ services:
     networks:
       - backend
 
+  frontend:
+    build:
+      context: ./ExchangeRatesUI
+      dockerfile: Dockerfile
+    container_name: currency_frontend
+    restart: always
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - backend
+
 volumes:
   mongo_data:
 
