@@ -142,7 +142,7 @@ ExchangeRates/
 
 ## 🧪 Testing
 
-- Unit tests for Services and Repositories  
+- Unit tests for Services and integration tests for Repositories  
 - xUnit-based test project  
 - Test fixtures for repeatable test data  
 
