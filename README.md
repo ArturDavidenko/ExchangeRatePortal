@@ -137,6 +137,8 @@ ExchangeRates/
 | `POST` | `/ExchangeRates/calculate` | Performs currency conversion calculations |
 | `POST` | `/ExchangeRates/trigger-update` | Manually triggers rate updates (bypasses Quartz scheduler) |
 
+- All endpoints are publicly accessible (no authentication required for this test assignment).  
+
 ## 💾 Data structure
 
 **Region Types:**
