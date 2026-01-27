@@ -137,7 +137,15 @@ ExchangeRates/
 | `POST` | `/ExchangeRates/calculate` | Performs currency conversion calculations |
 | `POST` | `/ExchangeRates/trigger-update` | Manually triggers rate updates (bypasses Quartz scheduler) |
 
-- All endpoints are publicly accessible (no authentication required for this test assignment).  
+- All endpoints are publicly accessible (no authentication required for this test assignment).
+
+
+## 🧪 Testing
+
+- Unit tests for Services and Repositories  
+- xUnit-based test project  
+- Test fixtures for repeatable test data  
+
 
 ## 💾 Data structure
 
