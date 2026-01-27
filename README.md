@@ -80,31 +80,31 @@ Rates are automatically synchronized daily from the LB.lt web service, with init
 
 ## 📁 Path architecture
 
-ExchangeRates/
-├── 📂 ExchangeRatesAPI (Backend)/
-│   ├── 📂 Controllers/        # REST API endpoints
-│   ├── 📂 Services/           # Business logic
-│   ├── 📂 Repositories/       # Data access layer (MongoDB, etc.)
-│   ├── 📂 Models/             # Domain models / DTOs
-│   ├── 📂 Jobs/               # Quartz scheduled tasks
-│   ├── 📂 Helpers/            # Shared helper utilities
-│   └── 📂 Data/               # Database context and configuration
-│
-├── 📂 TestsExchangeRatesAPI/  # Backend unit & integration tests
-│   ├── 📂 Fixtures/           # Test fixtures and setup
-│   ├── 📂 Helpers/            # Test-specific helpers and mocks
-│   ├── 📂 TestRepositories/   # Repository layer tests
-│   └── 📂 TestServices/       # Service layer tests
-│
-├── 📂 ExchangeRatesUI (Frontend)/
-│   ├── 📂 src/
-│   │   └── 📂 app/
-│   │       ├── 📂 components/ # UI components
-│   │       ├── 📂 services/   # Frontend business logic
-│   │       └── 📂 models/     # TypeScript interfaces and models
-│
-├── 📄 docker-compose.yml      # Docker infrastructure
-└── 📄 README.md               # Project documentation
+ExchangeRates/  
+├── 📂 ExchangeRatesAPI (Backend)/  
+│   ├── 📂 Controllers/        # REST API endpoints  
+│   ├── 📂 Services/           # Business logic  
+│   ├── 📂 Repositories/       # Data access layer (MongoDB, etc.)  
+│   ├── 📂 Models/             # Domain models / DTOs  
+│   ├── 📂 Jobs/               # Quartz scheduled tasks  
+│   ├── 📂 Helpers/            # Shared helper utilities  
+│   └── 📂 Data/               # Database context and configuration  
+│  
+├── 📂 TestsExchangeRatesAPI/  # Backend unit & integration tests  
+│   ├── 📂 Fixtures/           # Test fixtures and setup  
+│   ├── 📂 Helpers/            # Test-specific helpers and mocks  
+│   ├── 📂 TestRepositories/   # Repository layer tests  
+│   └── 📂 TestServices/       # Service layer tests  
+│  
+├── 📂 ExchangeRatesUI (Frontend)/  
+│   ├── 📂 src/  
+│   │   └── 📂 app/  
+│   │       ├── 📂 components/ # UI components  
+│   │       ├── 📂 services/   # Frontend business logic  
+│   │       └── 📂 models/     # TypeScript interfaces and models  
+│  
+├── 📄 docker-compose.yml      # Docker infrastructure  
+└── 📄 README.md               # Project documentation  
 
 ## ⚙️ 4. Technology Stack
 | Layer | Technology | Version |
