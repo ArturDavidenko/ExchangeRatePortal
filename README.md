@@ -29,10 +29,8 @@ Rates are automatically synchronized daily from the LB.lt web service, with init
 
 ### 📋 Prerequisites
 - Docker Desktop App
-- Node.js 18+ 
-- Angular CLI
 
-### ⚡ Installation & Launch
+### ⚡ Installation & Launch 
 
 1. **Clone and navigate to the project:**
    ```bash
@@ -45,17 +43,12 @@ Rates are automatically synchronized daily from the LB.lt web service, with init
   docker compose up -d
   ```
 
-3. **Launch the frontend application:**
-  ```bash
-  cd ExchangeRatesUI
-  npm install
-  ng serve
-  ```
-
 ## 🌐 Access points
 
 - Web Application: http://localhost:4200
 - API Documentation: http://localhost:5000/swagger
+
+🔄 Nginx acts as a reverse proxy and routes frontend and backend traffic internally via Docker network.
   
 ## 🏗️ 3. System Architecture  
 
@@ -81,22 +74,31 @@ Rates are automatically synchronized daily from the LB.lt web service, with init
 
 ## 📁 Path architecture
 
-ExchangeRates/  
-├── 📂 ExchangeRatesAPI (Backend)/  
-│ ├── 📂 Controllers/   # REST API endpoints  
-│ ├── 📂 Services/   # Business logic  
-│ ├── 📂 Repositories/   # Service who work with database  
-│ ├── 📂 Models/   # Data contracts  
-│ ├── 📂 Jobs/   # Quartz scheduled tasks  
-│ ├── 📂 Helper/  # Additionals functions to use  
-│ └── 📂 Data/   # MongoDB context or other databases  
-├── 📂 ExchangeRatesUI (Frontend)/  
-│ ├── 📂 src/app/  
-│ │ ├── 📂 components/   # UI components    
-│ │ ├── 📂 services/   # Business logic  
-│ │ ├── 📂 models/   # TypeScript interfaces    
-├── 📄 docker-compose.yml   # Infrastructure  
-└── 📄 README.md   # This file  
+ExchangeRates/
+├── 📂 ExchangeRatesAPI (Backend)/
+│   ├── 📂 Controllers/        # REST API endpoints
+│   ├── 📂 Services/           # Business logic
+│   ├── 📂 Repositories/       # Data access layer (MongoDB, etc.)
+│   ├── 📂 Models/             # Domain models / DTOs
+│   ├── 📂 Jobs/               # Quartz scheduled tasks
+│   ├── 📂 Helpers/            # Shared helper utilities
+│   └── 📂 Data/               # Database context and configuration
+│
+├── 📂 TestsExchangeRatesAPI/  # Backend unit & integration tests
+│   ├── 📂 Fixtures/           # Test fixtures and setup
+│   ├── 📂 Helpers/            # Test-specific helpers and mocks
+│   ├── 📂 TestRepositories/   # Repository layer tests
+│   └── 📂 TestServices/       # Service layer tests
+│
+├── 📂 ExchangeRatesUI (Frontend)/
+│   ├── 📂 src/
+│   │   └── 📂 app/
+│   │       ├── 📂 components/ # UI components
+│   │       ├── 📂 services/   # Frontend business logic
+│   │       └── 📂 models/     # TypeScript interfaces and models
+│
+├── 📄 docker-compose.yml      # Docker infrastructure
+└── 📄 README.md               # Project documentation
 
 ## ⚙️ 4. Technology Stack
 | Layer | Technology | Version |
