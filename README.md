@@ -38,10 +38,16 @@ Rates are automatically synchronized daily from the LB.lt web service, with init
    cd ExchangeRates
    ```
    
-2. **Start backend services with Docker:**
+2. **Start the entire application stack:**
   ```bash
   docker compose up -d
   ```
+
+- Frontend (Angular) runs inside a Docker container
+- Backend (.NET API) runs inside a Docker container
+- Nginx is used as a reverse proxy
+- All services communicate via Docker internal network
+- No backend ports are exposed publicly
 
 ## 🌐 Access points
 
